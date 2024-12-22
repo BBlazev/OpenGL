@@ -106,12 +106,17 @@ int main() {
 
 	//vertex array
 	float vertices[] = {
+		//first triangle
 
+		0.5f, 0.5f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f
 
-	}
+		//second triangle
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f
+	};
 
 	//VAO, VBO
 
@@ -126,8 +131,11 @@ int main() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+	//set stribute pointer
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 
-
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); TO DRAW ONLY LINES
 
 
 	while (!glfwWindowShouldClose(window)) {
@@ -135,10 +143,12 @@ int main() {
 		processInput(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
 		glClear(GL_COLOR_BUFFER_BIT);
 
-
+		//drawing
+		glBindVertexArray(VAO);
+		glUseProgram(shaderProgram);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		//sends new buffer to window
 		glfwSwapBuffers(window);
 		glfwPollEvents();

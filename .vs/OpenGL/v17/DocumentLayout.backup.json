@@ -13,6 +13,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{88227E15-FC93-4B82-86CC-9E70289BC3F7}|OpenGL\\OpenGL.vcxproj|C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\Assets\\fragment_core.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{88227E15-FC93-4B82-86CC-9E70289BC3F7}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Assets\\fragment_core.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88227E15-FC93-4B82-86CC-9E70289BC3F7}|OpenGL\\OpenGL.vcxproj|C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\Assets\\fragment_core2.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{88227E15-FC93-4B82-86CC-9E70289BC3F7}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Assets\\fragment_core2.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,6 +37,23 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "fragment_core2.glsl",
+              "DocumentMoniker": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\Assets\\fragment_core2.glsl",
+              "RelativeDocumentMoniker": "OpenGL\\Assets\\fragment_core2.glsl",
+              "ToolTip": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\Assets\\fragment_core2.glsl",
+              "RelativeToolTip": "OpenGL\\Assets\\fragment_core2.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-24T11:02:38.32Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "fragment_core.glsl",
@@ -40,7 +61,7 @@
               "RelativeDocumentMoniker": "OpenGL\\Assets\\fragment_core.glsl",
               "ToolTip": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\Assets\\fragment_core.glsl",
               "RelativeToolTip": "OpenGL\\Assets\\fragment_core.glsl",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-12-22T19:22:03.264Z",
               "EditorCaption": ""
@@ -53,7 +74,7 @@
               "RelativeDocumentMoniker": "OpenGL\\Assets\\vertex_core.glsl",
               "ToolTip": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\Assets\\vertex_core.glsl",
               "RelativeToolTip": "OpenGL\\Assets\\vertex_core.glsl",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-12-22T19:18:58.936Z",
               "EditorCaption": ""
@@ -64,9 +85,9 @@
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\main.cpp",
               "RelativeDocumentMoniker": "OpenGL\\main.cpp",
-              "ToolTip": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\main.cpp*",
-              "RelativeToolTip": "OpenGL\\main.cpp*",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAAAJYAAAACAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Bartol\\Desktop\\C\u002B\u002B\\OpenGL\\OpenGL\\main.cpp",
+              "RelativeToolTip": "OpenGL\\main.cpp",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAwwMcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-22T12:10:22.134Z",
               "EditorCaption": ""

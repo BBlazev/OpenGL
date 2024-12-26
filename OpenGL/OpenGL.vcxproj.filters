@@ -24,11 +24,19 @@
     <ClCompile Include="lib\stb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />
     <None Include="Assets\fragment_core.glsl" />
     <None Include="Assets\vertex_core.glsl" />
     <None Include="Assets\fragment_core2.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

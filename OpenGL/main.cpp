@@ -10,13 +10,12 @@
 #include <streambuf>
 #include <string>
 
-
+#include "Shader.h"
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-std::string loadShaderSrc(const char* filename);
 
 
 int main() {
@@ -58,88 +57,9 @@ int main() {
 	
 	*/
 
-	//compile vertex shader
-	unsigned int vertexShader;
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	std::string vertShaderSrc = loadShaderSrc("Assets/vertex_core.glsl");
-	const GLchar* vertShader = vertShaderSrc.c_str(); //getting is as string and converting it to GLchar*
-	glShaderSource(vertexShader, 1, &vertShader, NULL); //shader source &vertShader
-	glCompileShader(vertexShader);
-
-	//catch error
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success); //get shadervalue and gl compile status
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "error with vertex shader comp " << std::endl << infoLog << std::endl;
-	}
-
-	//compile fragment shader 
-
-	unsigned int fragmentShaders[2];
-
-
-	fragmentShaders[0] = glCreateShader(GL_FRAGMENT_SHADER);
-	std::string fragmentShaderSrc = loadShaderSrc("Assets/fragment_core.glsl");
-	const GLchar* fragShader = fragmentShaderSrc.c_str(); 
-	glShaderSource(fragmentShaders[0], 1, &fragShader, NULL);//shader source &fragShader
-	glCompileShader(fragmentShaders[0]);
-
-	glGetShaderiv(fragmentShaders[0], GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShaders[0], 512, NULL, infoLog);
-		std::cout << "error with fragment shader comp " << std::endl << infoLog << std::endl;
-	}
-
-	//second fragment shader
-
-
-	fragmentShaders[1] = glCreateShader(GL_FRAGMENT_SHADER);
-	fragmentShaderSrc = loadShaderSrc("Assets/fragment_core2.glsl");
-	fragShader = fragmentShaderSrc.c_str();
-	glShaderSource(fragmentShaders[1], 1, &fragShader, NULL);//shader source &fragShader
-	glCompileShader(fragmentShaders[1]);
-
-	glGetShaderiv(fragmentShaders[1], GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShaders[1], 512, NULL, infoLog);
-		std::cout << "error with fragment shader comp " << std::endl << infoLog << std::endl;
-	}
-
-	//create shader program
-	unsigned int shaderPrograms[2];
-	shaderPrograms[0] = glCreateProgram();
-	glAttachShader(shaderPrograms[0], vertexShader);
-	glAttachShader(shaderPrograms[0], fragmentShaders[0]);
-	glLinkProgram(shaderPrograms[0]);
-
-	glGetProgramiv(shaderPrograms[0], GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(shaderPrograms[0], 512, NULL, infoLog);
-		std::cout << "error with shader program " << std::endl << infoLog << std::endl;
-
-
-	}
-	//create shader program 2
-	shaderPrograms[1] = glCreateProgram();
-	glAttachShader(shaderPrograms[1], vertexShader);
-	glAttachShader(shaderPrograms[1], fragmentShaders[1]);
-	glLinkProgram(shaderPrograms[1]);
-
-	glGetProgramiv(shaderPrograms[1], GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(shaderPrograms[1], 512, NULL, infoLog);
-		std::cout << "error with shader program " << std::endl << infoLog << std::endl;
-
-	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShaders[0]);
-	glDeleteShader(fragmentShaders[1]);
+	Shader shader("Assets/vertex_core.glsl", "Assets/fragment_core.glsl");
+	Shader shader2("Assets/vertex_core.glsl", "Assets/fragment_core2.glsl");
+	
 
 	//vertex array
 	float vertices[] = {
@@ -176,7 +96,6 @@ int main() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //TO DRAW ONLY LINES
 
 	//color
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -184,10 +103,22 @@ int main() {
 
 	//matrix init
 	
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	glUseProgram(shaderPrograms[0]);
-	glUniformMatrix4fv(glGetUniformLocation(shaderPrograms[0], "transform"), 1, GL_FALSE, glm::value_ptr(trans));
+	
+	glm::mat4 trans1 = glm::mat4(1.0f);
+	glm::mat4 trans2 = glm::mat4(1.0f);
+
+
+	trans1 = glm::rotate(trans1, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	trans2 = glm::scale(trans1, glm::vec3(1.5f));
+	trans2 = glm::rotate(trans1, glm::radians(15.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	shader.activate();
+	shader2.activate();
+
+
+
+	shader.setMat4("transform", trans1);
+	shader2.setMat4("transform", trans2);
 
 	while (!glfwWindowShouldClose(window)) {
 		processInput(window);
@@ -195,19 +126,23 @@ int main() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(glGetUniformLocation(shaderPrograms[0], "transform"), 1, GL_FALSE, glm::value_ptr(trans));
+		// Update transformations
+		glm::mat4 trans1 = glm::rotate(glm::mat4(1.0f), glm::radians((float)glfwGetTime() * 10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-
+		// Draw first triangle
+		shader.activate();
+		shader.setMat4("transform", trans1);
 		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-		// First shader
-		glUseProgram(shaderPrograms[0]);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw first triangle
+		trans2 = glm::rotate(trans2, glm::radians((float)glfwGetTime() / -100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		// Second shader
-		//glUseProgram(shaderPrograms[1]);
-		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(3 * sizeof(unsigned int))); // Draw second triangle
+		// Draw second triangle
+		shader2.activate();
+		shader2.setMat4("transform", trans2);
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(3 * sizeof(GLuint)));
+
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -226,25 +161,4 @@ void processInput(GLFWwindow* window) {
 		glfwSetWindowShouldClose(window, true);
 }
 
-std::string loadShaderSrc(const char* filename)
-{
-	std::ifstream file;
-	std::stringstream buf;
 
-	std::string ret = "";
-	file.open(filename);
-
-	if (file.is_open())
-	{
-		buf << file.rdbuf();
-		ret = buf.str();
-	}
-	else
-	{
-		std::cout << "couldnt open: " << filename << std::endl;
-	}
-	file.close();
-
-
-	return ret;
-}

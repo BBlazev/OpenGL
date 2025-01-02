@@ -151,6 +151,10 @@
   <ItemGroup>
     <ClInclude Include="Shader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\image1.jpg" />
+    <Image Include="Assets\image2.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

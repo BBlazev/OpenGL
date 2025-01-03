@@ -109,6 +109,8 @@ int main() {
 
     // Textures
     unsigned int texture1;
+    unsigned int texture2
+        ;
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
 
@@ -135,15 +137,32 @@ int main() {
     }
 
     stbi_image_free(data);
+    glGenTextures(1, &texture2);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+
+    data = stbi_load("Assets/image1.jpg", &width, &height, &nChannels, 0);
+
+    
+
+
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
     shader.activate();
     shader.setInt("texture1", 0);
+    shader.setInt("texture2", 1);
     // Matrix init
     glm::mat4 trans1 = glm::mat4(1.0f);
     glm::mat4 trans2 = glm::mat4(1.0f);
-
-
-    /*trans1 = glm::rotate(trans1, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    trans2 = glm::scale(trans1, glm::vec3(1.5f));
+    trans1 = glm::rotate(trans1, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    /*trans2 = glm::scale(trans1, glm::vec3(1.5f));
     trans2 = glm::rotate(trans1, glm::radians(15.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
     shader.activate();
@@ -162,6 +181,9 @@ int main() {
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
+        
+        //glActiveTexture(GL_TEXTURE1);
+        //glBindTexture(GL_TEXTURE_2D, texture2);
 
         // Update transformations
         //glm::mat4 trans1 = glm::rotate(glm::mat4(1.0f), glm::radians((float)glfwGetTime() * 10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -169,7 +191,7 @@ int main() {
         // Draw first triangle
         shader.activate();
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         /*
         shader.setMat4("transform", trans1);
 
@@ -182,7 +204,7 @@ int main() {
         glBindVertexArray(VAO);
         */
 
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(3 * sizeof(GLuint)));
+        //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(3 * sizeof(GLuint)));
 
         glBindVertexArray(0);
         glfwSwapBuffers(window);
